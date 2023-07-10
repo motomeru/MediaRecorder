@@ -5,23 +5,23 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="keywords" content="WebRTC getUserMedia MediaRecorder API">
-    <link type="text/css" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <style>
       body {
         width: 90%;
         max-width: 960px;
         margin: 0 auto;
-        background: linear-gradient(to right, #5719ca, #feb47b); /* Orange gradient background */
-        color: white; /* White text for readability */
-        font-family: Arial, sans-serif; /* Changing the font to Arial */
+        background: linear-gradient(to right, #5719ca, #feb47b);
+        color: white;
+        font-family: Arial, sans-serif;
       }
       button {
         margin: 10px 5px;
-        background-color: #007bff; /* Blue buttons for contrast */
+        background-color: #007bff;
         color: white;
-        padding: 10px 20px; /* More padding for larger, more clickable buttons */
-        border-radius: 5px; /* Rounded corners for a softer appearance */
-        border: none; /* Removing default button borders */
+        padding: 10px 20px;
+        border-radius: 5px;
+        border: none;
       }
       li {
         margin: 10px;
@@ -30,33 +30,35 @@
         display: none;
       }
       h1 {
-        margin: 100px 0; /* Reducing side margins on the title */
-        text-align: center; /* Centering the title */
-        font-family: 'Courier New', Courier, monospace; /* Changing the title's font */
+        margin: 100px 0;
+        text-align: center;
+        font-family: 'Courier New', Courier, monospace;
       }
     </style>
   </head>
   <body>
-    <h1>MediaRecorder API example</h1>
+    <main>
+      <h1>MediaRecorder API example</h1>
 
-    <p> if you will have any questions please let me know dawid@pilvi.pl</p>
-    <div id='gUMArea'>
-      <div>
-      Record:
-        <input type="radio" name="media" value="video" checked id='mediaVideo'>Video
-        <input type="radio" name="media" value="audio">audio
+      <p> If you have any questions, please let me know at <a href="mailto:dawid@pilvi.pl">dawid@pilvi.pl</a></p>
+      <div id='gUMArea'>
+        <div>
+        Record:
+          <input type="radio" name="media" value="video" checked id='mediaVideo'>Video
+          <input type="radio" name="media" value="audio">Audio
+        </div>
+        <button class="btn btn-primary" id='gUMbtn'>Request Stream</button>
       </div>
-      <button class="btn btn-default" id='gUMbtn'>Request Stream</button>
-    </div>
-    <div id='btns'>
-      <button class="btn btn-default" id='start'>Start</button>
-      <button class="btn btn-default" id='stop'>Stop</button>
-    </div>
-    <div>
-      <ul class="list-unstyled" id='ul'></ul>
-    </div>
-    <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+      <div id='btns'>
+        <button class="btn btn-primary" id='start'>Start</button>
+        <button class="btn btn-primary" id='stop'>Stop</button>
+      </div>
+      <div>
+        <ul class="list-unstyled" id='ul'></ul>
+      </div>
+    </main>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="script.js"></script>
   </body>
 </html>
