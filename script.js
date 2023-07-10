@@ -1,77 +1,73 @@
 'use strict'
 
-let log = console.log.bind(console),
-  id = val => document.getElementById(val),
-  ul = id('ul'),
-  gUMbtn = id('gUMbtn'),
-  start = id('start'),
-  stop = id('stop'),
-  stream,
-  recorder,
-  counter=1,
-  chunks,
-  media;
+// Grab elements from DOM
+const ul = document.getElementById('ul');
+const gUMbtn = document.getElementById('gUMbtn');
+const start = document.getElementById('start');
+const stop = document.getElementById('stop');
 
+let stream;
+let recorder;
+let counter = 1;
+let chunks;
+let media;
 
-gUMbtn.onclick = e => {
-  let mv = id('mediaVideo'),
-      mediaOptions = {
-        video: {
-          tag: 'video',
-          type: 'video/webm',
-          ext: '.mp4',
-          gUM: {video: true, audio: true}
-        },
-        audio: {
-          tag: 'audio',
-          type: 'audio/ogg',
-          ext: '.ogg',
-          gUM: {audio: true}
-        }
-      };
+gUMbtn.addEventListener('click', () => {
+  const mv = document.getElementById('mediaVideo');
+  const mediaOptions = {
+    video: {
+      tag: 'video',
+      type: 'video/webm',
+      ext: '.mp4',
+      gUM: {video: true, audio: true}
+    },
+    audio: {
+      tag: 'audio',
+      type: 'audio/ogg',
+      ext: '.ogg',
+      gUM: {audio: true}
+    }
+  };
   media = mv.checked ? mediaOptions.video : mediaOptions.audio;
   navigator.mediaDevices.getUserMedia(media.gUM).then(_stream => {
     stream = _stream;
-    id('gUMArea').style.display = 'none';
-    id('btns').style.display = 'inherit';
+    document.getElementById('gUMArea').style.display = 'none';
+    document.getElementById('btns').style.display = 'inherit';
     start.removeAttribute('disabled');
     recorder = new MediaRecorder(stream);
     recorder.ondataavailable = e => {
       chunks.push(e.data);
       if(recorder.state == 'inactive')  makeLink();
     };
-    log('got media successfully');
-  }).catch(log);
-}
+    console.log('got media successfully');
+  }).catch(err => console.log(err));
+});
 
-start.onclick = e => {
+start.addEventListener('click', () => {
   start.disabled = true;
   stop.removeAttribute('disabled');
-  chunks=[];
+  chunks = [];
   recorder.start();
-}
+});
 
-
-stop.onclick = e => {
+stop.addEventListener('click', () => {
   stop.disabled = true;
   recorder.stop();
   start.removeAttribute('disabled');
-}
+});
 
+function makeLink() {
+  let blob = new Blob(chunks, {type: media.type });
+  let url = URL.createObjectURL(blob);
+  let li = document.createElement('li');
+  let mt = document.createElement(media.tag);
+  let hf = document.createElement('a');
 
-
-function makeLink(){
-  let blob = new Blob(chunks, {type: media.type })
-    , url = URL.createObjectURL(blob)
-    , li = document.createElement('li')
-    , mt = document.createElement(media.tag)
-    , hf = document.createElement('a')
-  ;
   mt.controls = true;
   mt.src = url;
   hf.href = url;
   hf.download = `${counter++}${media.ext}`;
-  hf.innerHTML = `donwload ${hf.download}`;
+  hf.innerHTML = `download ${hf.download}`;
   li.appendChild(mt);
   li.appendChild(hf);
   ul.appendChild(li);
